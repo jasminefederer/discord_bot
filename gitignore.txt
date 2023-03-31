@@ -1,0 +1,10 @@
+# bearer token file
+openai_bearer.txt
+bearer_openai.txt
+keys.txt
+
+# virtual env
+venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
