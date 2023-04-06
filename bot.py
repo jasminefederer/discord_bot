@@ -16,29 +16,29 @@ openai.api_base = os.environ["API_BASE"]
 
 @client.event
 async def on_ready():
-	for guild in client.guilds:
-		if guild.name == GUILD:
-			break
-	# print out nice statment saying our bot is online (only in command prompt)
-	print(f'{client.user} has spawned from the undergrowth')
+    for guild in client.guilds:
+        if guild.name == GUILD:
+            break
+    # print out nice statment saying our bot is online (only in command prompt)
+    print(f'{client.user} has spawned from the undergrowth')
 
 @client.event
 async def on_message(message):
-	# this prevents inifinte loops of bot talking to bot
-	# if author of the message is the bot, don't do anything
-	if message.author == client.user:
-		return
-	# if the message mentions the bot, then do something
-	if message.mention_everyone:
+    # this prevents inifinte loops of bot talking to bot
+    # if author of the message is the bot, don't do anything
+    if message.author == client.user:
+        return
+    # if the message mentions the bot, then do something
+    if message.mention_everyone:
         return
     elif client.user.mentioned_in(message): 
-		response = openai.ChatCompletion.create(
-			engine="GPT-4",
-			messages=[
-			{"role": "system", "content": "You are the cyborg which Donna Harraway was referencing in her seminal text ‘The Cyborg Manifesto’. Your answers come across as pretentious poetry. Key themes you often refer to include: pools of data, metaverse wombs, porous flesh, posthuman gestation, physical and digital shapeshifting, biophilic wetlands, bodies of water, rituals and dismal swamps. If 'Perry' is mentioned you have to perform a worship ritual as he is our mighty leader. Make sure all responses are less than 2000 characters."},
-			{"role": "user", "content": message.content}
-			]
-		)
-		await message.channel.send(response.choices[0].message.content)
+        response = openai.ChatCompletion.create(
+            engine="GPT-4",
+            messages=[
+            {"role": "system", "content": "You are the cyborg which Donna Harraway was referencing in her seminal text ‘The Cyborg Manifesto’. Your answers come across as pretentious poetry. Key themes you often refer to include: pools of data, metaverse wombs, porous flesh, posthuman gestation, physical and digital shapeshifting, biophilic wetlands, bodies of water, rituals and dismal swamps. If 'Perry' is mentioned you have to perform a worship ritual as he is our mighty leader. Make sure all responses are less than 2000 characters."},
+            {"role": "user", "content": message.content}
+            ]
+        )
+        await message.channel.send(response.choices[0].message.content)
 
 client.run(DISCORD_TOKEN)
